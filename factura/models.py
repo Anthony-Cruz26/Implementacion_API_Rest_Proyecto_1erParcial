@@ -1,8 +1,16 @@
 from django.db import models
 
 # Create your models here.
-class Producto(models.Model):
+class Suministrador(models.Model):
+    ruc=models.IntegerField(null=True)
     nombre=models.CharField(max_length=50, null=True)
+    sucursal = models.CharField(max_length=50, null=True)
+
+    def __str__(self):
+        return f'{self.ruc} {self.nombre} {self.sucursal}'
+
+class Producto(models.Model):
+    nombre=models.CharField(max_length=20, null=True)
     precio=models.IntegerField(null=True)
 
     def __str__(self):
@@ -11,7 +19,7 @@ class Cliente(models.Model):
     cedula=models.IntegerField(null=True)
     nombre=models.CharField(max_length=20, null=True)
     apellido=models.CharField(max_length=20, null=True)
-    email=models.CharField(max_length=50, null=True)
+    email=models.CharField(max_length=20, null=True)
     direccion=models.CharField(max_length=50, null=True)
     telefono=models.IntegerField(null=True)
 
@@ -23,5 +31,6 @@ class Factura(models.Model):
     total=models.IntegerField(null=True)
     cliente=models.ForeignKey(Cliente, on_delete=models.SET_NULL, null=True)
     producto=models.ForeignKey(Producto, on_delete=models.SET_NULL, null=True)
+    suministrador=models.ForeignKey(Suministrador, on_delete=models.SET_NULL, null=True)
     def __str__(self):
-        return f'id: {self.fecha} {self.cantidad} {self.total} '
+        return f'id: {self.fecha} {self.cantidad} {self.total}'

@@ -42,6 +42,7 @@
     </div>
     <div align="center">
         <a class="btn btn-success" href="agregar_factura/">Agregar Factura</a>
+        <a class="btn btn-success" href="generar_reporte/">Generar Reporte</a>
     </div>
     <div class="table-responsive">
         <table class="table table-success table-striped table-bordered align-middle caption-top text-center">
@@ -49,6 +50,9 @@
             <tr>
                 <th>Codigo_Factura</th>
                 <th>Fecha</th>
+                <th>Ruc</th>
+                <th>Proveedor</th>
+                <th>Direccion</th>
                 <th>Cedula</th>
                 <th>Nombre</th>
                 <th>Apellido</th>
@@ -63,6 +67,9 @@
                     <tr>
                         <td>{{factura.id}}</td>
                         <td>{{factura.fecha}}</td>
+                        <td>{{factura.suministrador.ruc}}</td>
+                        <td>{{factura.suministrador.nombre}}</td>
+                        <td>{{factura.suministrador.sucursal}}</td>
                         <td>{{factura.cliente.cedula}}</td>
                         <td>{{factura.cliente.nombre}}</td>
                         <td>{{factura.cliente.apellido}}</td>

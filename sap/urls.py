@@ -15,9 +15,15 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from factura.views import agregar_factura, ver_factura, editar_factura, eliminar_factura, generar_reporte
+from rest_framework import routers
+from webapp import views
 from webapp.views import mostrar_facturas
+
+router = routers.DefaultRouter()
+router.register(r'facturas', views.UserViewSet)
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', mostrar_facturas, name='inicio'),
@@ -26,4 +32,6 @@ urlpatterns = [
     path('editar_factura/<int:idFactura>', editar_factura),
     path('eliminar_factura/<int:idFactura>', eliminar_factura),
     path('generar_reporte/', generar_reporte),
+    path('', include(router.urls)),
+    path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 ]

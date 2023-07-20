@@ -3,9 +3,10 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.template import loader
 from openpyxl import Workbook
-
+from factura.models import Factura, Producto, Cliente, Suministrador
 from factura.forms import FacturaFormulario
-from factura.models import Factura
+from rest_framework import viewsets, permissions
+from factura.serializers import FacturaSerializer, ProductoSerializer, ClienteSerializer, SuministradorSerializer
 
 
 # Create your views here.
@@ -92,3 +93,23 @@ def generar_reporte(request):
     response["Content-Disposition"] = contenido
     wb.save(response)
     return response
+
+class FacturaViewSet(viewsets.ModelViewSet):
+    queryset = Factura.objects.all().order_by('cliente')
+    serializer_class = FacturaSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+class ClienteViewSet(viewsets.ModelViewSet):
+    queryset =Cliente.objects.all()
+    serializer_class = ClienteSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+class ProductoViewSet(viewsets.ModelViewSet):
+    queryset = Producto.objects.all()
+    serializer_class = ProductoSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+class SuministradorViewSet(viewsets.ModelViewSet):
+    queryset = Suministrador.objects.all()
+    serializer_class = SuministradorSerializer
+    permission_classes = [permissions.IsAuthenticated]

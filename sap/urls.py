@@ -16,13 +16,17 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from factura import views
 from factura.views import agregar_factura, ver_factura, editar_factura, eliminar_factura, generar_reporte
 from rest_framework import routers
-from webapp import views
 from webapp.views import mostrar_facturas
 
 router = routers.DefaultRouter()
-router.register(r'facturas', views.UserViewSet)
+router.register(r'facturas', views.FacturaViewSet)
+router.register(r'clientes', views.ClienteViewSet)
+router.register(r'productos', views.ProductoViewSet)
+router.register(r'suministrador', views.SuministradorViewSet)
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
